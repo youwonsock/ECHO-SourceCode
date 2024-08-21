@@ -1,7 +1,7 @@
 # ECHO-SourceCode
 
 ## Developer Info
-* ÀÌ¸§ : À¯¿ø¼®(You Won Sock)
+* ìœ ì›ì„(You Won Sock)
 * GitHub : https://github.com/youwonsock
 * Mail : qazwsx233434@gmail.com
 * Download : https://store.steampowered.com/app/3132180/Echo/ 
