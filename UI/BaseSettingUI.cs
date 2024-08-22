@@ -7,11 +7,12 @@ using UnityEngine;
 /// </summary>
 public class BaseSettingUI : MonoBehaviour, IUIBase
 {
-    [SerializeField] private Transform PopupArea;
+    [SerializeField] private Transform PopupArea;   // DependentUI가 소속될 부모 Transform
     [SerializeField] private GameObject GraphicSettingUI;
     [SerializeField] private GameObject SoundSettingUI;
     [SerializeField] private GameObject KeySettingUI;
 
+    // 별도로 생성되는 UI가 아닌 BaseSettingUI의 생명 주기에 종속되는 UI
     IUIBase currentDependentUI = new NullDependentUI();
 
 
@@ -56,6 +57,11 @@ public class BaseSettingUI : MonoBehaviour, IUIBase
         rt.offsetMax = new Vector2(0, 0);
     }
 
+    /// <summary>
+    /// 이 UI에 종속되는 UI를 보여준다.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="go"></param>
     private void ShowDependentUI<T>(GameObject go) where T : IUIBase
     {
         currentDependentUI.Release();

@@ -14,11 +14,25 @@ public enum UIType
 /// </summary>
 public interface IUIBase
 {
+    /// <summary>
+    /// UI 초기화 함수
+    /// </summary>
     public void Init();
 
+    /// <summary>
+    /// UI 해제 함수
+    /// </summary>
     public void Release();
 
+    /// <summary>
+    /// UI 타입 반환 함수
+    /// </summary>
+    /// <returns></returns>
     public UIType GetUIType();
 
+    /// <summary>
+    /// RectTransform 반환 함수
+    /// </summary>
+    /// <param name="rt">RectTransform</param>
     public void GetRectTransform(out RectTransform rt);
 }

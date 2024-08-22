@@ -25,7 +25,7 @@ public class Singleton<T> : SerializedMonoBehaviour where T : MonoBehaviour
         else
         {
             // already exist, destroy self
-            Destroy(gameObject);
+            Destroy(this.gameObject);
         }
 
         Init();

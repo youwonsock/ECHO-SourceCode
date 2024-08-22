@@ -16,10 +16,26 @@ public enum PoolingType
 /// </summary>
 public interface IPoolingAble
 {
+    /// <summary>
+    /// PoolingType 반환
+    /// </summary>
+    /// <returns>객체의 PoolingType</returns>
     public PoolingType GetPoolingType();
 
+    /// <summary>
+    /// 활성화 여부 반환
+    /// </summary>
+    /// <returns></returns>
     public bool IsActivate();
 
+    /// <summary>
+    /// 활성화
+    /// </summary>
+    /// <param name="transform"></param>
     public void Activate(Transform transform);
+    
+    /// <summary>
+    /// 비활성화
+    /// </summary>
     public void Deactivate();
 }

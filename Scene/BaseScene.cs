@@ -40,6 +40,9 @@ public abstract class BaseScene : MonoBehaviour
 
     protected abstract void OnSceneLoaded(Scene scene, LoadSceneMode mode);
 
+    // Awake에서 호출되는 초기화 메서드
     protected virtual void Init() { }
+
+    // OnDisable에서 호출되는 해제 메서드
     protected virtual void Release() { }
 }

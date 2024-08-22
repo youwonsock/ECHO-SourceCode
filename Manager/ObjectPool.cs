@@ -14,13 +14,17 @@ public class ObjectPool
     private Transform transform;
 
     private GameObject[] poolingAbleArray;
-    private IPoolingAble nullPoolingAble;
-    private Dictionary<PoolingType, Queue<IPoolingAble>> queueDict;
+    private IPoolingAble nullPoolingAble;                            // NullPoolingAble
+    private Dictionary<PoolingType, Queue<IPoolingAble>> queueDict;  // Type별로 Queue를 관리
 
     private CancellationTokenSource disableCancletoken;
 
 
-
+    /// <summary>
+    /// PoolingAble 객체 생성 함수
+    /// </summary>
+    /// <param name="type"></param>
+    /// <returns></returns>
     private IPoolingAble CreatePoolingAble(PoolingType type)
     {
         if (poolingAbleArray[(int)type] != null)
@@ -39,6 +43,11 @@ public class ObjectPool
         return null;
     }
 
+    /// <summary>
+    /// PoolingAble 객체 반환 함수
+    /// </summary>
+    /// <param name="poolingAble">반환할 PoolingAble</param>
+    /// <returns></returns>
     private async UniTaskVoid ReturnPoolingAble(IPoolingAble poolingAble)
     {
         await UniTask.WaitUntil(() => poolingAble.IsActivate() == false, PlayerLoopTiming.FixedUpdate, disableCancletoken.Token);
@@ -52,6 +61,10 @@ public class ObjectPool
 
 
 
+    /// <summary>
+    /// 초기화 메서드
+    /// </summary>
+    /// <param name="transform">Object Transform</param>
     public void Init(Transform transform)
     {
         try
@@ -101,6 +114,7 @@ public class ObjectPool
                         queueDict.Add(type, new Queue<IPoolingAble>());
                         poolingAbleArray[(int)type] = go;
 
+                        // create pooling able objects (Base : 10)
                         for (int i = 0; i < 10; ++i)
                         {
                             IPoolingAble temp = CreatePoolingAble(type);
@@ -123,6 +137,9 @@ public class ObjectPool
         }
     }
 
+    /// <summary>
+    /// 해제 함수
+    /// </summary>
     public void Release()
     {
         disableCancletoken?.Cancel();
@@ -131,6 +148,11 @@ public class ObjectPool
         queueDict?.Clear();
     }
 
+    /// <summary>
+    /// PoolingAble 객체 반환 함수
+    /// </summary>
+    /// <param name="type">반환받을 객체의 Type</param>
+    /// <returns></returns>
     public IPoolingAble Get(PoolingType type)
     {
         if (queueDict.TryGetValue(type, out var queue))
@@ -148,6 +170,10 @@ public class ObjectPool
         return null;
     }
 
+    /// <summary>
+    /// PoolingAble 객체 반환 함수
+    /// </summary>
+    /// <param name="poolingAble">반환할 객체</param>
     public void Return(IPoolingAble poolingAble)
     {
         if (poolingAble.GetPoolingType() == PoolingType.MAX)

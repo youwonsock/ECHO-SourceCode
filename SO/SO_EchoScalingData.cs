@@ -8,10 +8,10 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Echo Scaling Data", menuName = "Scriptable Object/Echo Scaling Data", order = int.MaxValue)]
 public class SO_EchoScalingData : SerializedScriptableObject
 {
-    [SerializeField] private PoolingType type;
-    [SerializeField][MinValue(0)] private float scalingTime = 10;
-    [SerializeField][MinValue(0)] private float maxScale = 100;
-    private float inverseScalingTime = 0;
+    [SerializeField] private PoolingType type;                      // ObjectPooling Type
+    [SerializeField][MinValue(0)] private float scalingTime = 10;   // 최대 크기에 도달하는대 걸리는 시간
+    [SerializeField][MinValue(0)] private float maxScale = 100;     // 최대 크기
+    private float inverseScalingTime = 0;                           // scalingTime 의 역수(Echo Script에서 추가 연산을 하지 않기 위해)   
 
 
 

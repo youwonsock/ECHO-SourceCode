@@ -6,5 +6,8 @@
 /// </summary>
 public interface ISettingData
 {
+    /// <summary>
+    /// 설정 데이터를 불러오는 함수
+    /// </summary>
     public void LoadSettingData();
 }

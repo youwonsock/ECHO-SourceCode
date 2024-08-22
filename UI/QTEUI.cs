@@ -2,6 +2,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// QTE Event UI
+/// 
+/// YWS : 2024.07.15
+/// </summary>
 public class QTEUI : MonoBehaviour, IUIBase, IUpdateable, IProgressUIView
 {
     [SerializeField] private Image image;

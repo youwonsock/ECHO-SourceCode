@@ -1,9 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// GraphicSettingUI
+/// MainMenuUI
 /// 
 /// YWS : 2024.07.11
 /// </summary>
@@ -32,7 +30,7 @@ public class MainMenuUI : MonoBehaviour, IUIBase
 
     public void OnClickStartButton()
     {
-        GameManager.Instance.SceneManager.LoadScene("DIG_PrototypeScene");
+        GameManager.Instance.SceneManager.LoadScene(SceneType.InGame);
     }
 
     public void OnClickSettingButton()
@@ -42,7 +40,6 @@ public class MainMenuUI : MonoBehaviour, IUIBase
 
     public void OnClickExitButton()
     {
-        //Debug.Log("Exit Game");
         Application.Quit();
 #if !UNITY_EDITOR
 

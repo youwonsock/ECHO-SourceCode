@@ -1,6 +1,4 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.Threading;
 using UnityEngine;
 
 /// <summary>
@@ -12,7 +10,7 @@ public class UIManager
 {
     private int popupSortOrder = 10;
 
-    private Stack<IUIBase> popupStack;
+    private Stack<IUIBase> popupStack; // Popup UI를 관리하기 위한 Stack
 
     private IUIBase currentSceneUI = null;
     private Transform transform;
@@ -46,7 +44,11 @@ public class UIManager
     }
 
 
-
+    /// <summary>
+    /// UI 종류 별 Canvas 설정을 위함 함수
+    /// </summary>
+    /// <param name="UI"> UI Object </param>
+    /// <param name="sort"> use sortingOrder </param>
     private void SetCanvas(GameObject UI, bool sort = true)
     {
         UI.TryGetComponent<Canvas>(out Canvas canvas);
@@ -60,6 +62,12 @@ public class UIManager
             canvas.sortingOrder = 0;
     }
 
+    /// <summary>
+    /// UI 출력 함수
+    /// </summary>
+    /// <typeparam name="T"> 생성할 UI 타입 </typeparam>
+    /// <param name="name"> 생성할 UI Object Prefab 이름</param>
+    /// <returns></returns>
     public IUIBase ShowUI<T>(string name) where T : IUIBase
     {
         GameObject go = Resources.Load<GameObject>(name);
@@ -73,6 +81,12 @@ public class UIManager
         return ShowUI<T>(go);
     }
 
+    /// <summary>
+    /// UI 출력 함수
+    /// </summary>
+    /// <typeparam name="T">생성할 UI 타입</typeparam>
+    /// <param name="go">생성할 UI Prefab Object</param>
+    /// <returns></returns>
     public IUIBase ShowUI<T>(GameObject go) where T : IUIBase
     {
         GameObject instance = GameObject.Instantiate<GameObject>(go);
@@ -101,6 +115,9 @@ public class UIManager
         return ui;
     }
 
+    /// <summary>
+    /// 모든 UI 닫기
+    /// </summary>
     public void CloaseAll()
     {
         if (popupStack != null)
@@ -116,6 +133,9 @@ public class UIManager
         }
     }
 
+    /// <summary>
+    /// 가장 최근에 활성화 된 UI
+    /// </summary>
     public void CloaseCurrentUI()
     {
         if(popupStack.Count > 0)
@@ -131,6 +151,9 @@ public class UIManager
         }
     }
 
+    /// <summary>
+    /// 가장 최근에 활성화 된 Popup UI 닫기
+    /// </summary>
     public void CloasePopup()
     {
         if (popupStack.Count > 0)

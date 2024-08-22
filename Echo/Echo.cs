@@ -36,23 +36,26 @@ public class Echo : MonoBehaviour, IUpdateable, IPoolingAble
         UpdateManager.OffSubscribe(this, false, true, false);
     }
 
-    public void UpdateWork(){}
+    public void UpdateWork(){ }
+
     public void LateUpdateWork(){}
 
     public void FixedUpdateWork()
     {
-        //time += Time.fixedDeltaTime * scalingData.InverseScalingTime;
-        //transform.localScale = Vector3.Lerp(Vector3.zero, scalingData.MaxScale, time);
-
+        // 시간에 따라 크기 조절
         time += Time.fixedDeltaTime * scalingData.InverseScalingTime;
         float scale = Mathf.Lerp(0, scalingData.MaxScale, time);
 
-        // gameManager 에 값 갱신하기
+        // gameManager에 Echo값 갱신하기
         GameManager.Instance.UpdateEchoRadiusAndPosition(echoID, scale, new Vector4(transform.position.x, transform.position.y, transform.position.z, type));
     }
 
 
 
+    /// <summary>
+    /// Echo 비활성화 처리
+    /// </summary>
+    /// <returns></returns>
     private async UniTaskVoid Disable()
     {
         await UniTask.Delay(TimeSpan.FromSeconds(scalingData.ScalingTime));

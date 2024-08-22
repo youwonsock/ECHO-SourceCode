@@ -37,6 +37,23 @@ public class GameManager : Singleton<GameManager>
         uiManager.Release();
     }
 
+    private void Update()
+    {
+        groundMat.SetFloatArray("_EchoRadius", echoRadiusArr);
+        groundMat.SetVectorArray("_EchoPosition", echoPosition);
+
+        numMat.SetFloatArray("_EchoRadius", echoRadiusArr);
+        numMat.SetVectorArray("_EchoPosition", echoPosition);
+    }
+
+    private void OnApplicationPause(bool pause)
+    {
+        if (pause)
+        {
+            uiManager.ShowUI<PauseUI>("UI/Pause UI");
+        }
+    }
+
 
 
     private void InitManagers()
@@ -59,15 +76,23 @@ public class GameManager : Singleton<GameManager>
         ui.transform.SetParent(transform);
         playerPresenter = ui.AddComponent<PlayerPresenter>();
         uiManager.Init(ui.transform);
-        
+
+        if (groundMat == null)
+            groundMat = Resources.Load<Material>("Material/GroundEcho");
 
         groundMat.SetFloatArray("_EchoRadius", echoRadiusArr);
         groundMat.SetVectorArray("_EchoPosition", echoPosition);
+
+        if (numMat == null)
+            numMat = Resources.Load<Material>("Material/NumberMaterial");
 
         numMat.SetFloatArray("_EchoRadius", echoRadiusArr);
         numMat.SetVectorArray("_EchoPosition", echoPosition);
     }
 
+    /// <summary>
+    /// 저장된 세팅 데이터 Load 함수
+    /// </summary>
     private void InitSetting()
     {
         Object[] UIPrefabs = Resources.LoadAll("Prefab/UI");
@@ -95,25 +120,26 @@ public class GameManager : Singleton<GameManager>
         Camera.main.depthTextureMode = DepthTextureMode.Depth;
     }
 
+    /// <summary>
+    /// Shader에 전달할 Echo들의 반지름과 위치를 업데이트
+    /// </summary>
+    /// <param name="echoID"></param>
+    /// <param name="radius"></param>
+    /// <param name="position"></param>
     public void UpdateEchoRadiusAndPosition(int echoID, float radius, Vector4 position)
     {
         echoRadiusArr[echoID] = radius;
         echoPosition[echoID] = position;
     }
 
+    /// <summary>
+    /// Shader에 전달할 EchoID를 반환
+    /// </summary>
+    /// <returns></returns>
     public int GetEchoID()
     {
         echoId = echoId % Constants.ECHO_MAX_COUNT;
 
         return echoId++;
-    }
-
-    private void FixedUpdate()
-    {
-        groundMat.SetFloatArray("_EchoRadius", echoRadiusArr);
-        groundMat.SetVectorArray("_EchoPosition", echoPosition);
-
-        numMat.SetFloatArray("_EchoRadius", echoRadiusArr);
-        numMat.SetVectorArray("_EchoPosition", echoPosition);
     }
 }

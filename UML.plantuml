@@ -1,0 +1,170 @@
+
+@startuml
+
+class GameManager
+{
+    - ObjectPool objectPool
+    - DataManager dataManager
+    - UIManager uiManager
+    - SceneManagerEX sceneManager
+    - SoundManager soundManager
+    
+    + void InitManagers()
+    + void UpdateEcho(int echoID, float radius, vector4 posotion)
+}
+
+class SceneManagerEX
+{
+    -async UniTaskVoid LoadSceneAsync(SceneType type)
+
+    +string GetSceneName()
+    +SceneType GetSceneType()
+    +void LoadScene(SceneType type)
+}
+
+class SoundManager
+{
+    -AudioMixer audioMixer
+    -AudioSource bgmSource
+    -Queue<AudioSource> sfxSourceQueue
+    -Dictionary<string, AudioClip> audioClipDict
+
+    -async UniTaskVoid ReturnSFX(AudioSource source)
+    
+    +PlaySound2D(string path, SoundType type, float volume = 1.0f, float pitch = 1.0f)
+    +PlaySound2D(AudioClip audioClip, SoundType type, float volume = 1.0f, float pitch = 1.0f)
+    +PlaySound3D(string path, Transform transform, SoundType type, float volume = 1.0f, float pitch = 1.0f)
+    +PlaySound3D(AudioClip audioClip, Transform transform, SoundType type, float volume = 1.0f, float pitch = 1.0f)
+
+    +void SetVolume(float volume)
+}
+
+class ObjectPool
+{
+    GameObject[] poolingAbleArray
+    IPoolingAble nullPoolingAble
+    Dictionary<PoolingType, Queue<IPoolingAble>> queueDict
+
+    -async UniTaskVoid ReturnPoolingAble(IPoolingAble poolingAble)
+
+    +IPoolingAble Get(PoolingType type)
+    +void Return(IPoolingAble poolingAble)
+}
+
+class DataManager
+{
+    Dictionary<String, ISave> saveableDict
+    string defaultPath
+
+    + void AddSaveable(string key, ISave saveable)
+    + void RemoveSaveable(string key)
+
+    + void Save()
+    + void Load()
+}
+
+class UIManager
+{
+    -int popupSortOrder
+    -Stack<IUIBase> popupStack
+    -IUIBase currentSceneUI
+
+    +IUIBase ShowUI<T>(string name) where T : IUIBase
+    +IUIBase ShowUI<T>(GameObject go) where T : IUIBase
+    +void CloaseAll()
+    +void CloaseCurrentUI()
+    +void CloasePopup()
+}
+
+class UIClass
+{
+
+}
+
+class BaseScene
+{
+    -SceneType type
+
+    +SceneType Type
+
+    #void abstract OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    #void Init();
+    #void Release();
+}
+
+class SceneClass
+{
+
+}
+
+class Echo
+{
+    -EchoScalingData scalingData
+    -float time
+    -float echoID
+    -float type
+
+    -void UpdateData()
+}
+
+class EchoShader
+{   
+    +float4 BaseColor
+    +float4 EchoColor
+
+    +float EchoData[25]
+}   
+
+
+
+interface IPoolingAble
+{
+    +PoolingType GetPoolingType()
+    +bool IsActivate()
+    +void Activate(Transform transform)
+    +void Deactivate()
+}
+
+interface ISave
+{
+    +void Save()
+    +void Load()
+}
+
+interface IUIBase
+{
+    +void Init()
+    +void Release()
+    +UIType GetUIType()
+    +void GetRectTransfrom()
+}
+
+
+
+note top of EchoShader
+    게임의 Echo 효과 구현을 위한 Unlit 쉐이더
+end note
+
+
+note right of UIClass
+    상속받은 인터페이스들을 구현한 실제 UI 클래스
+end note
+
+note right of SceneClass
+    상속받은 BaseScene의 함수를 재정의해 
+    Scene Load 시 호출되는 함수를 구현
+end note
+
+BaseScene <|-- SceneClass
+IUIBase <|-- UIClass
+ISave <|-- UIClass
+IPoolingAble <|-- Echo
+
+GameManager *-- ObjectPool
+GameManager *-- DataManager
+GameManager *-- UIManager
+GameManager *-- SceneManagerEX
+GameManager *-- SoundManager
+
+
+@enduml

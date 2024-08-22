@@ -5,7 +5,7 @@ using UnityEngine;
 /// 최적화를 위해 Update, FixedUpdate, LateUpdate를 한번에 관리하는 클래스
 /// 꼭 사용할 필요는 없음!
 /// 
-/// YWS : 2024.06.16
+/// YWS : 2024.06.28
 /// </summary>
 public class UpdateManager : MonoBehaviour
 {

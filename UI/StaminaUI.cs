@@ -1,6 +1,11 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// 스테미너 UI 클래스
+/// 
+/// YWS : 2024.07.26
+/// </summary>
 public class StaminaUI : MonoBehaviour, IUIBase, IProgressUIView
 {
     [SerializeField] private Image fillImage;
