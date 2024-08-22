@@ -1,8 +1,6 @@
 using Cysharp.Threading.Tasks;
 using System;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 /// <summary>
 /// Echo Effect Scaling Å¬·¡½º
