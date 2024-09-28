@@ -7,6 +7,8 @@
 * Download : https://store.steampowered.com/app/3132180/Echo/ 
 
 ## Our Game
+![스크린샷 2024-09-28 223259](https://github.com/user-attachments/assets/099297dc-979a-4388-b759-40e1bb5abed4)
+
 
 ### Genres
 
