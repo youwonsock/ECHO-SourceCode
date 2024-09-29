@@ -39,7 +39,7 @@
 ### Manager
   * GameManager
   
-  * SoundManager
+  * SoundManager  
     Unity Audio Mixer와 연동하여 사운드 조절 기능 및 AudioSource Pool을 구현하였습니다.
 
     <details>
@@ -325,7 +325,7 @@
     * ISave
     * ISettingData
   
-  * SceneManagerEX
+  * SceneManagerEX  
     비동기 Scene Loading 및 Scene 관리의 편의성을 위해 제작된 확장 SceneManager 클래스입니다.
   
     <details>
