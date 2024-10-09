@@ -43,7 +43,7 @@
     Unity Audio Mixer와 연동하여 사운드 조절 기능 및 AudioSource Pool을 구현하였습니다.
 
     <details>
-    <summary>SceneManagerEX Code</summary>
+    <summary>SoundManager Code</summary>
     <div markdown="1">
 
       ```c#
